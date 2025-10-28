@@ -21,7 +21,7 @@
 
         <!-- Filtros -->
         <div class="bg-white dark:bg-gray-700 rounded-lg shadow-sm border border-gray-200 dark:border-gray-600 p-6 mb-6">
-            <form method="GET" action="{{ route('tasks.index') }}" class="space-y-4 md:space-y-0 md:grid md:grid-cols-6 md:gap-4">
+            <form method="GET" action="{{ route('tasks.index') }}" class="space-y-4 md:space-y-0 md:grid md:grid-cols-7 md:gap-4">
                 <!-- Pesquisa -->
                 <div class="md:col-span-2">
                     <label for="search" class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">Pesquisar</label>
@@ -37,9 +37,10 @@
                 <div>
                     <label for="status" class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">Estado</label>
                     <select name="status" id="status" class="w-full rounded-md border-gray-300 dark:border-gray-500 dark:bg-white dark:text-gray-900 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                        <option value="">Todas</option>
+                        <option value="">Ativas (não concluídas)</option>
                         <option value="pending" {{ request('status') === 'pending' ? 'selected' : '' }}>Pendentes</option>
                         <option value="completed" {{ request('status') === 'completed' ? 'selected' : '' }}>Concluídas</option>
+                        <option value="all" {{ request('status') === 'all' ? 'selected' : '' }}>Todas (incluindo concluídas)</option>
                     </select>
                 </div>
 
@@ -65,12 +66,27 @@
                     </select>
                 </div>
 
+                <!-- Ordenação -->
+                <div>
+                    <label for="sort" class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">Ordenar por</label>
+                    <select name="sort" id="sort" class="w-full rounded-md border-gray-300 dark:border-gray-500 dark:bg-white dark:text-gray-900 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                        <option value="created_at_desc" {{ request('sort') === 'created_at_desc' ? 'selected' : '' }}>Mais recentes</option>
+                        <option value="created_at_asc" {{ request('sort') === 'created_at_asc' ? 'selected' : '' }}>Mais antigas</option>
+                        <option value="due_date_asc" {{ request('sort') === 'due_date_asc' ? 'selected' : '' }}>Vencimento (próximo)</option>
+                        <option value="due_date_desc" {{ request('sort') === 'due_date_desc' ? 'selected' : '' }}>Vencimento (distante)</option>
+                        <option value="priority_desc" {{ request('sort') === 'priority_desc' ? 'selected' : '' }}>Prioridade (alta → baixa)</option>
+                        <option value="priority_asc" {{ request('sort') === 'priority_asc' ? 'selected' : '' }}>Prioridade (baixa → alta)</option>
+                        <option value="title_asc" {{ request('sort') === 'title_asc' ? 'selected' : '' }}>Título (A → Z)</option>
+                        <option value="title_desc" {{ request('sort') === 'title_desc' ? 'selected' : '' }}>Título (Z → A)</option>
+                    </select>
+                </div>
+
                 <!-- Botões -->
-                <div class="flex space-x-2">
-                    <button type="submit" class="px-3 py-2 bg-gray-600 text-white text-sm rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500">
+                <div class="flex items-center space-x-2">
+                    <button type="submit" class="inline-flex items-center justify-center px-3 py-2 bg-gray-600 text-white text-sm rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500">
                         Filtrar
                     </button>
-                    <a href="{{ route('tasks.index') }}" class="px-3 py-2 bg-gray-300 dark:bg-gray-500 text-gray-700 dark:text-white text-sm rounded-md hover:bg-gray-400 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-300">
+                    <a href="{{ route('tasks.index') }}" class="inline-flex items-center justify-center px-3 py-2 bg-gray-300 dark:bg-gray-500 text-gray-700 dark:text-white text-sm rounded-md hover:bg-gray-400 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-300">
                         Limpar
                     </a>
                 </div>
@@ -93,6 +109,39 @@
             </div>
         @endif
 
+        <!-- Título da Vista Atual -->
+        <div class="mb-6">
+            <div class="flex items-center">
+                @if(request('status') === 'completed')
+                    <h2 class="text-xl font-semibold text-gray-900 dark:text-white">✅ Tarefas Concluídas</h2>
+                @elseif(request('status') === 'pending')
+                    <h2 class="text-xl font-semibold text-gray-900 dark:text-white">⏳ Tarefas Pendentes</h2>
+                @elseif(request('due_date_filter') === 'overdue')
+                    <h2 class="text-xl font-semibold text-gray-900 dark:text-white">⚠️ Tarefas em Atraso</h2>
+                @elseif(request('status') === 'all')
+                    <h2 class="text-xl font-semibold text-gray-900 dark:text-white">📋 Todas as Tarefas</h2>
+                @else
+                    <h2 class="text-xl font-semibold text-gray-900 dark:text-white">⚡ Tarefas Ativas</h2>
+                @endif
+                <span class="ml-auto text-sm text-gray-500 dark:text-gray-400">
+                    {{ $tasks->total() }} {{ $tasks->total() === 1 ? 'tarefa' : 'tarefas' }}
+                </span>
+            </div>
+            <div class="mt-1 text-sm text-gray-600 dark:text-gray-300">
+                @if(request('status') === 'completed')
+                    Tarefas que já foram marcadas como concluídas
+                @elseif(request('status') === 'pending')
+                    Tarefas não concluídas que ainda não estão em atraso
+                @elseif(request('due_date_filter') === 'overdue')
+                    Tarefas que passaram da data de vencimento e ainda não foram concluídas
+                @elseif(request('status') === 'all')
+                    Todas as suas tarefas, incluindo concluídas e ativas
+                @else
+                    Tarefas que precisam da sua atenção (pendentes e em atraso)
+                @endif
+            </div>
+        </div>
+
         <!-- Lista de tarefas -->
         @if($tasks->count() > 0)
             <div class="bg-white dark:bg-gray-700 shadow-sm rounded-lg border border-gray-200 dark:border-gray-600">
@@ -101,25 +150,16 @@
                         <div class="p-6 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors duration-150">
                             <div class="flex items-start justify-between">
                                 <!-- Conteúdo da tarefa -->
-                                <div class="flex items-start space-x-4 flex-1">
-                                    <!-- Checkbox para completar -->
-                                    <form action="{{ route('tasks.toggle-complete', $task) }}" method="POST" class="mt-1">
-                                        @csrf @method('PATCH')
-                                        <input type="checkbox" 
-                                               onchange="this.form.submit()"
-                                               {{ $task->is_completed ? 'checked' : '' }}
-                                               class="h-4 w-4 text-indigo-600 border-gray-300 dark:border-gray-500 rounded focus:ring-indigo-500">
-                                    </form>
-
+                                <div class="flex items-start flex-1">
                                     <div class="flex-1 min-w-0">
                                         <!-- Título -->
-                                        <h3 class="text-lg font-medium text-gray-900 dark:text-white {{ $task->is_completed ? 'line-through text-gray-500 dark:text-gray-400' : '' }}">
+                                        <h3 class="text-lg font-medium text-gray-900 dark:text-white">
                                             {{ $task->title }}
                                         </h3>
 
                                         <!-- Descrição -->
                                         @if($task->description)
-                                            <p class="mt-1 text-sm text-gray-600 dark:text-gray-300 {{ $task->is_completed ? 'line-through' : '' }}">
+                                            <p class="mt-1 text-sm text-gray-600 dark:text-gray-300">
                                                 {{ Str::limit($task->description, 100) }}
                                             </p>
                                         @endif
@@ -154,6 +194,26 @@
 
                                 <!-- Ações -->
                                 <div class="flex items-center space-x-2 ml-4">
+                                    <!-- Botão para completar/descompletar -->
+                                    <form action="{{ route('tasks.toggle-complete', $task) }}" method="POST" class="inline">
+                                        @csrf @method('PATCH')
+                                        <button type="submit" 
+                                                class="{{ $task->is_completed ? 'text-green-500 hover:text-green-700 dark:text-green-400 dark:hover:text-green-300' : 'text-gray-400 hover:text-green-600 dark:text-gray-500 dark:hover:text-green-400' }}" 
+                                                title="{{ $task->is_completed ? 'Marcar como pendente' : 'Marcar como concluída' }}">
+                                            @if($task->is_completed)
+                                                <!-- Ícone de tarefa concluída -->
+                                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                                </svg>
+                                            @else
+                                                <!-- Ícone para completar -->
+                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                                </svg>
+                                            @endif
+                                        </button>
+                                    </form>
+
                                     <a href="{{ route('tasks.show', $task) }}" 
                                        class="text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300" 
                                        title="Ver detalhes">
@@ -205,6 +265,9 @@
                 <p class="text-gray-600 dark:text-gray-300 mb-6">
                     @if(request()->hasAny(['search', 'status', 'priority', 'due_date_filter']))
                         Não existem tarefas que correspondam aos filtros selecionados.
+                    @elseif(!request()->filled('status'))
+                        Não tem tarefas ativas no momento. Todas as suas tarefas estão concluídas!
+                        <br><small class="text-gray-500">Para ver tarefas concluídas, use o filtro "Concluídas" na sidebar ou no filtro acima.</small>
                     @else
                         Comece por criar a sua primeira tarefa para organizar as suas atividades.
                     @endif

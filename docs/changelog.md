@@ -4,6 +4,253 @@ Registo das alterações feitas durante o desenvolvimento deste projeto de está
 
 ---
 
+## [0.13.3] — 2025-10-28
+
+### 📊 Dashboard Informativo - Centro de Controlo Completo
+
+**Transformação:** Dashboard deixou de ser um simples redirecionamento para se tornar uma página verdadeiramente útil com métricas e insights.
+
+#### 🎯 Funcionalidades Principais Implementadas
+
+**Métricas de Visão Geral:**
+
+-   **4 cards principais**: Total de Tarefas, Pendentes, Concluídas, Em Atraso
+-   **Indicadores visuais**: Emojis contextuais e cores diferenciadas por categoria
+-   **Contadores em tempo real**: Valores atualizados a cada acesso
+
+**Estatísticas Detalhadas:**
+
+-   **Distribuição por prioridade**: Alta (🔴), Média (🟡), Baixa (🟢) com contadores
+-   **Resumo semanal**: Tarefas criadas, completadas e eliminadas na semana atual
+-   **Período preciso**: Segunda a domingo da semana corrente
+
+**Próximas Tarefas:**
+
+-   **Lista inteligente**: 5 próximas tarefas com vencimento nos próximos 7 dias
+-   **Navegação direta**: Links para visualizar cada tarefa individualmente
+-   **Priorização visual**: Indicadores de prioridade para foco imediato
+
+#### ⚡ Ações Rápidas e Navegação
+
+**Botões de Ação Direta:**
+
+-   **Nova Tarefa**: Acesso imediato ao formulário de criação
+-   **Todas as Tarefas**: Link para vista completa
+-   **Tarefas Pendentes**: Filtro direto para tarefas ativas
+-   **Lixo**: Gestão de tarefas eliminadas
+
+#### 🔧 Correções de Consistência
+
+**Problema Crítico Resolvido:**
+
+-   **Dashboard vs Sidebar**: Contadores de "Pendentes" mostravam valores diferentes
+-   **Causa**: Dashboard incluía tarefas em atraso, sidebar não
+-   **Solução**: Ambos agora usam `pendingNotOverdue()` scope
+
+**Melhorias Técnicas:**
+
+-   **Precisão temporal**: "Esta semana" sempre segunda a domingo
+-   **Queries otimizadas**: 11 métricas calculadas eficientemente
+-   **Reutilização de scopes**: Aproveitamento de lógica existente no modelo
+
+#### 🚀 Experiência do Utilizador
+
+**Redirecionamento Pós-Login:**
+
+-   **Constante HOME**: Definida como `/dashboard` no FortifyServiceProvider
+-   **Primeiro contacto**: Utilizadores veem imediatamente o estado das suas tarefas
+-   **Orientação imediata**: Dashboard fornece contexto completo da produtividade
+
+**Interface Responsiva:**
+
+-   **Layout adaptativo**: Cards reorganizam-se conforme tamanho da tela
+-   **Dark mode**: Suporte completo com transições suaves
+-   **Consistency visual**: Alinhado com design system da aplicação
+
+**Resultado:** Dashboard transformou-se no verdadeiro centro de controlo da aplicação, substituindo um simples redirecionamento por uma experiência rica em informação e funcionalidade.
+
+---
+
+## [0.13.2] — 2025-10-28
+
+### 🎨 Interface de Autenticação Personalizada
+
+**Objetivo:** Garantir consistência visual em toda a jornada do utilizador, desde a primeira visita até ao acesso à aplicação.
+
+#### 🔐 Redesign Completo das Páginas de Auth
+
+-   **Layout principal reformulado**: Mesmo gradiente de fundo da página welcome
+-   **Branding sempre presente**: Logo "✅ To-Do App" prominente em todas as páginas
+-   **Container elegante**: Formulários em caixas com sombras e bordas arredondadas
+-   **Transições suaves**: Dark mode harmonizado com resto da aplicação
+
+#### 📱 Páginas Individuais Personalizadas
+
+**Login (`/login`):**
+
+-   **Título intuitivo**: "🔐 Iniciar Sessão" em vez do genérico "Log in"
+-   **Botão melhorado**: "🚀 Entrar" com emoji e call-to-action claro
+-   **Navegação clara**: Link para registo bem destacado com separador visual
+
+**Registo (`/register`):**
+
+-   **Título atrativo**: "✨ Criar Conta" focado na ação
+-   **Botão chamativo**: "🎯 Criar Conta" que convida à ação
+-   **Onboarding suave**: Texto que posiciona o valor da aplicação
+
+**Recuperar Password (`/forgot-password`):**
+
+-   **Título descritivo**: "🔑 Recuperar Password" que explica a função
+-   **Botão explicativo**: "📧 Enviar Link de Recuperação" que clarifica o processo
+-   **Fluxo intuitivo**: Link de retorno bem posicionado
+
+#### 🌍 Localização Portuguesa Completa
+
+-   **Textos nativos**: Todas as mensagens e botões em português
+-   **Emojis contextuais**: Identificadores visuais intuitivos para cada página
+-   **Terminologia consistente**: Linguagem alinhada com resto da aplicação
+
+#### 🎯 Impacto na Experiência
+
+-   **Primeiro contacto profissional**: Utilizadores veem imediatamente que é uma aplicação cuidada
+-   **Confiança desde o início**: Visual consistente transmite credibilidade
+-   **Jornada fluida**: Transição natural da página welcome para autenticação
+-   **Acessibilidade visual**: Contraste adequado em ambos os temas
+
+**Resultado:** Experiência de autenticação completamente integrada no ecossistema visual da aplicação.
+
+---
+
+## [0.13.1] — 2025-10-28
+
+### 🎯 Otimização de UX - Filtragem Inteligente
+
+**Filosofia:** Focar a atenção do utilizador nas tarefas que requerem ação.
+
+#### 🧠 Mudanças de Comportamento
+
+-   **Vista principal otimizada**: Por defeito mostra apenas tarefas não concluídas
+-   **Redução de ruído visual**: Tarefas concluídas ficam ocultas da vista principal
+-   **Acesso rápido**: Filtro "Todas" disponível para visão completa quando necessário
+-   **Contexto sempre claro**: Títulos dinâmicos indicam que filtro está ativo
+
+#### ✨ Melhorias de Interface
+
+-   **Títulos dinâmicos**: Vista principal indica contexto atual (ex: "✅ Tarefas Ativas")
+-   **Interface limpa**: Foco nas tarefas pendentes aumenta produtividade
+-   **Navegação intuitiva**: Transição suave entre diferentes vistas
+-   **Experiência focada**: Menos distração, mais ação
+
+#### 🎨 Refinamentos Visuais
+
+-   **Emojis como identificadores**: Sistema de ícones limpo e consistente
+-   **Hierarquia visual clara**: Títulos e conteúdo bem definidos
+-   **Design minimalista**: Removidas redundâncias visuais
+
+**Impacto**: Utilizadores focam nas tarefas que precisam de atenção, com acesso rápido à vista completa quando necessário.
+
+---
+
+## [0.13.0] — 2025-10-28
+
+### 🗑️ Sistema de Lixo (Soft Delete)
+
+**O que implementei:**
+
+#### 🗃️ Backend - Soft Delete Completo
+
+-   **Migration criada** para adicionar campo `deleted_at` à tabela tasks
+-   **Model atualizado** com trait `SoftDeletes` do Laravel
+-   **3 novos métodos no Controller**:
+    -   `trash()` - lista tarefas eliminadas
+    -   `restore($id)` - restaura tarefa eliminada
+    -   `forceDelete($id)` - elimina permanentemente
+-   **3 novas rotas** para gestão de lixo
+
+#### 🎨 Frontend - Interface de Lixo
+
+-   **Nova view** `tasks/trash.blade.php` com design diferenciado
+-   **Visual especial**: fundo vermelho, texto riscado, badges de estado
+-   **Link na sidebar** com contador dinâmico de tarefas eliminadas
+-   **Botões de ação** com confirmações de segurança
+
+#### 🎯 Estados das Tarefas (agora 4 estados)
+
+1. **Pendente** ⏳ - tarefa ativa, não concluída
+2. **Concluída** ✅ - tarefa ativa, marcada como feita
+3. **Em Atraso** ⚠️ - tarefa ativa, passou da data de vencimento
+4. **Eliminada** 🗑️ - tarefa soft deleted (invisível nas views normais)
+
+**Ficheiros alterados:**
+
+-   `database/migrations/add_soft_deletes_to_tasks_table.php` - nova migration
+-   `app/Models/Task.php` - adicionado trait SoftDeletes
+-   `app/Http/Controllers/TaskController.php` - 3 novos métodos
+-   `routes/web.php` - 3 novas rotas
+-   `resources/views/tasks/trash.blade.php` - nova view
+-   `resources/views/components/layouts/app/sidebar.blade.php` - link para lixo
+
+**O que aprendi:**
+
+-   **Soft Delete** é uma funcionalidade poderosa para auditoria e recuperação
+-   **Trait SoftDeletes** do Laravel automatiza muito do trabalho
+-   **onlyTrashed()** scope permite queries específicas para dados eliminados
+-   **Interface diferenciada** ajuda utilizadores a distinguir estados
+-   **Confirmações de segurança** são essenciais para ações irreversíveis
+-   **Contadores dinâmicos** melhoram a UX ao dar feedback visual imediato
+
+---
+
+## [0.12.0] — 2025-10-28
+
+### 📊 Sistema de Ordenação + Melhorias de UI
+
+**O que implementei:**
+
+#### 🔄 Sistema de Ordenação Completo
+
+-   **8 opções de ordenação**: Data criação, vencimento, prioridade, título (ambas direções)
+-   **Tratamento inteligente** de valores nulos para datas de vencimento
+-   **SQL compatível** usando CASE WHEN em vez de FIELD() MySQL-específico
+-   **Interface integrada** com dropdown no sistema de filtros existente
+-   **Preservação de estado** - ordenação selecionada mantida após submissão
+
+#### 🎨 Consistência Visual Melhorada
+
+-   **Hover effects padronizados** em todas as views com maior contraste
+-   **Toggle buttons reposicionados** para áreas de ação mais lógicas
+-   **Spacing consistente** entre botões de ação em index e show views
+-   **Estados visuais otimizados** para tarefas completas vs pendentes
+
+#### 📝 Otimização de Formulários
+
+-   **Checkbox de conclusão removido** do formulário de edição (desnecessário)
+-   **Date picker corrigido** - agora visível em dark mode
+-   **Navegação melhorada** - botão cancelar redireciona para index
+-   **Focus na essência** - formulário mais limpo e focado
+
+#### 🔧 Correções de Bugs
+
+-   **Ordenação por prioridade** funcionando corretamente
+-   **Visibilidade de campos** em ambos os temas
+-   **Fluxo de navegação** intuitivo e consistente
+
+**Ficheiros alterados:**
+
+-   `app/Http/Controllers/TaskController.php` - lógica de ordenação
+-   `resources/views/tasks/index.blade.php` - UI de ordenação e melhorias visuais
+-   `resources/views/tasks/show.blade.php` - consistência de botões
+-   `resources/views/tasks/edit.blade.php` - simplificação e correções
+
+**O que aprendi:**
+
+-   **SQL universal** é mais robusto que funções específicas de SGBD
+-   **Consistência visual** requer atenção sistemática a detalhes
+-   **Sistemas de ordenação** complexos precisam de tratamento cuidadoso de edge cases
+-   **UX profissional** resulta de refinamento iterativo de pequenos detalhes
+
+---
+
 ## [0.11.0] — 2025-10-27
 
 ### 🌙 Melhorias no Dark Mode

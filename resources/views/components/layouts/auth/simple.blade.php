@@ -3,16 +3,28 @@
     <head>
         @include('partials.head')
     </head>
-    <body class="min-h-screen bg-white antialiased dark:bg-linear-to-b dark:from-neutral-950 dark:to-neutral-900">
-        <div class="bg-background flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
-            <div class="flex w-full max-w-sm flex-col gap-2">
-                <a href="{{ route('home') }}" class="flex flex-col items-center gap-2 font-medium" wire:navigate>
-                    <span class="flex h-9 w-9 mb-1 items-center justify-center rounded-md">
-                        <x-app-logo-icon class="size-9 fill-current text-black dark:text-white" />
-                    </span>
-                    <span class="sr-only">{{ config('app.name', 'Laravel') }}</span>
-                </a>
-                <div class="flex flex-col gap-6">
+    <body class="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-cyan-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 antialiased transition-colors duration-200">
+        <div class="flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
+            <div class="w-full max-w-md">
+                <!-- Branding Header -->
+                <div class="text-center mb-8">
+                    <a href="{{ route('home') }}" class="inline-block" wire:navigate>
+                        <div class="flex items-center justify-center mb-4">
+                            <div class="rounded-full bg-indigo-600 dark:bg-indigo-500 p-4 transition-colors duration-200">
+                                <span class="text-3xl text-white">✅</span>
+                            </div>
+                        </div>
+                        <h1 class="text-2xl font-bold text-gray-900 dark:text-white transition-colors duration-200">
+                            To-Do App
+                        </h1>
+                        <p class="text-sm text-gray-600 dark:text-gray-300 mt-1 transition-colors duration-200">
+                            Gestor de Tarefas
+                        </p>
+                    </a>
+                </div>
+
+                <!-- Auth Form Container -->
+                <div class="bg-white dark:bg-gray-800 shadow-lg rounded-lg border border-gray-200 dark:border-gray-700 p-8 transition-colors duration-200">
                     {{ $slot }}
                 </div>
             </div>

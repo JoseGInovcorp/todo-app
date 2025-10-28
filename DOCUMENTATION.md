@@ -37,6 +37,54 @@ Uma aplicação web para gerir tarefas pessoais, que desenvolvi durante o meu es
 -   Login seguro (não podes ver tarefas de outros)
 -   Registo de novas contas
 
+### 📊 Sistema de Ordenação (v0.12.0):
+
+-   **8 formas diferentes** de organizar as tarefas:
+    -   Por data de criação (mais recentes primeiro ou mais antigas)
+    -   Por data de vencimento (próximas ou distantes)
+    -   Por prioridade (alta→baixa ou baixa→alta)
+    -   Por título alfabético (A→Z ou Z→A)
+-   **Mantém a escolha** depois de aplicar filtros
+-   **Funciona com tudo** - pesquisa, filtros, paginação
+
+### 🗑️ Sistema de Lixo com Soft Delete (v0.13.0):
+
+-   **4 estados para as tarefas**: Pendente, Concluída, Em Atraso, **Eliminada**
+-   **Soft Delete**: Tarefas "eliminadas" ficam guardadas na base de dados para auditoria
+-   **Interface de lixo dedicada** onde posso ver e gerir tarefas eliminadas
+-   **3 ações principais**:
+    -   **Eliminar** - move a tarefa para o lixo (soft delete)
+    -   **Restaurar** - traz a tarefa de volta do lixo
+    -   **Eliminar permanentemente** - apaga definitivamente da base de dados
+-   **Contador na sidebar** - mostra quantas tarefas estão no lixo em tempo real
+
+### 🎯 Filtragem Inteligente de Vistas (v0.13.1):
+
+-   **Vista principal otimizada**: Por defeito mostra apenas tarefas ativas (não concluídas)
+-   **Filtragem automática**: Tarefas concluídas ficam ocultas para reduzir ruído visual
+-   **Vista "Todas"**: Opção para ver todas as tarefas quando necessário
+-   **Contexto dinâmico**: Títulos das vistas adaptam-se ao filtro ativo
+-   **Experiência focada**: Interface limpa centrada nas tarefas que requerem atenção
+
+### 🎨 Interface de Autenticação Personalizada (v0.13.2):
+
+-   **Branding consistente**: Logo "✅ To-Do App" visível em todas as páginas de auth
+-   **Visual harmonizado**: Mesmo gradiente de fundo da página principal
+-   **Páginas redesenhadas**: Login, registo e recuperação de password
+-   **Elementos portugueses**: Títulos e textos 100% em português com emojis intuitivos
+-   **Design profissional**: Containers com sombras, bordas arredondadas e transições suaves
+-   **Dark mode integrado**: Suporte completo para modo escuro em todas as páginas de auth
+
+### 📊 Dashboard Informativo (v0.13.3):
+
+-   **Centro de controlo**: Página principal com visão geral completa da produtividade
+-   **4 métricas principais**: Total, Pendentes, Concluídas, Em Atraso com contadores visuais
+-   **Estatísticas detalhadas**: Distribuição por prioridade e resumo semanal
+-   **Próximas tarefas**: Lista das 5 próximas tarefas com vencimento nos próximos 7 dias
+-   **Ações rápidas**: Botões diretos para Nova Tarefa, Todas, Pendentes e Lixo
+-   **Redirecionamento inteligente**: Utilizadores são direcionados para o dashboard após login
+-   **Contagens consistentes**: Mesma lógica de contadores em todo o projeto (sidebar + dashboard)
+
 ---
 
 ## 🌙 Dark Mode - O que mais me orgulho
@@ -62,6 +110,76 @@ Uma das coisas que mais gostei de implementar foi o sistema de modo escuro/claro
 -   LocalStorage no browser para guardar preferências
 -   Que detalhes pequenos fazem grande diferença na experiência
 
+## 🎨 Melhorias de Interface (v0.12.0)
+
+### Consistência Visual:
+
+-   **Botões padronizados** em todas as páginas
+-   **Hover effects melhorados** - mais contraste e visibilidade
+-   **Posicionamento inteligente** - botões de ação em locais lógicos
+-   **Espaçamento consistente** entre elementos
+
+### Formulários Otimizados:
+
+-   **Campos desnecessários removidos** - foco no essencial
+-   **Date picker corrigido** - agora visível em dark mode
+-   **Navegação melhorada** - botões cancelar funcionam corretamente
+-   **Validação visual** mantida em ambos os temas
+
+### O que aprendi:
+
+-   **Consistência** é fundamental para aplicações profissionais
+-   **Pequenos detalhes** fazem grande diferença na experiência do utilizador
+-   **Teste sistemático** em ambos os temas é essencial
+
+## 🗑️ Sistema de Soft Delete - Preservação e recuperação de dados
+
+### O que faz:
+
+-   **Preserva tarefas eliminadas** na base de dados em vez de as apagar definitivamente
+-   **Interface separada** para gerir tarefas no "lixo"
+-   **Permite restaurar** tarefas eliminadas por engano
+-   **Eliminação permanente** quando tenho certeza que não preciso mais
+-   **Auditoria completa** - histórico de todas as eliminações
+
+### Como implementei:
+
+-   **Migration**: Adicionei campo `deleted_at timestamp` à tabela tasks
+-   **Model**: Implementei o trait `SoftDeletes` do Laravel
+-   **Controller**: 3 métodos novos (trash, restore, forceDelete)
+-   **Rotas**: 3 rotas RESTful para gestão do lixo
+-   **View**: Interface dedicada com visual diferenciado
+
+### Problemas técnicos que resolvi:
+
+-   **Separação de dados**: Como distinguir tarefas ativas das eliminadas → Trait SoftDeletes
+-   **Contadores dinâmicos**: Como contar tarefas no lixo → Scope `onlyTrashed()`
+-   **Segurança**: Como prevenir eliminação acidental → Modal de confirmação
+-   **Performance**: Como não impactar queries normais → Soft deletes automáticos
+
+## 🎯 Sistema de Filtragem Inteligente - UX otimizada
+
+### Filosofia da implementação:
+
+-   **Foco no essencial**: Vista principal mostra apenas tarefas que requerem ação
+-   **Redução de ruído visual**: Tarefas concluídas ficam ocultas por defeito
+-   **Acesso rápido**: Filtro "Todas" disponível quando preciso de visão completa
+-   **Contexto claro**: Títulos dinâmicos indicam sempre que filtro está ativo
+
+### Impacto na experiência:
+
+-   **Produtividade**: Utilizador foca nas tarefas pendentes
+-   **Menos distração**: Interface limpa sem tarefas já concluídas
+-   **Flexibilidade**: Acesso rápido a diferentes vistas conforme necessidade
+-   **Clareza**: Sempre sei que vista estou a consultar
+
+### O que mais me orgulho:
+
+-   **Decisões de UX fundamentadas** - priorizei o workflow real do utilizador
+-   **Implementação elegante** - mudança simples com grande impacto
+-   **Flexibilidade mantida** - não perdi funcionalidade, apenas otimizei
+-   **Atenção ao detalhe** - títulos dinâmicos dão contexto constante
+
 ---
 
 ## 🏗️ Como está organizado o código
@@ -72,7 +190,7 @@ app/
 │   └── Task.php              # Modelo da tarefa
 ├── Http/
 │   ├── Controllers/
-│   │   └── TaskController.php # Lógica principal das tarefas
+│   │   └── TaskController.php # Lógica principal das tarefas + ordenação + soft delete
 │   └── Policies/
 │       └── TaskPolicy.php     # Regras de quem pode ver/editar o quê
 ├── Providers/
@@ -84,7 +202,8 @@ resources/
 │       ├── index.blade.php    # Lista de tarefas
 │       ├── create.blade.php   # Criar nova tarefa
 │       ├── show.blade.php     # Ver detalhes
-│       └── edit.blade.php     # Editar tarefa
+│       ├── edit.blade.php     # Editar tarefa
+│       └── trash.blade.php    # Lixo (tarefas eliminadas)
 └── js/
     └── theme.js               # JavaScript do dark mode
 
@@ -106,6 +225,7 @@ database/
 -   `priority` - prioridade: alta, média, baixa
 -   `is_completed` - se está concluída ou não
 -   `user_id` - a quem pertence a tarefa
+-   `deleted_at` - timestamp de soft delete (null = ativa, preenchido = eliminada)
 -   `created_at` / `updated_at` - datas de criação e atualização
 
 ### Tabela `users`:
@@ -173,6 +293,18 @@ Aprendi a fazer testes automáticos com Pest para garantir que tudo funciona:
 -   Sidebar personalizada
 -   Sistema de dark mode
 -   Correções de usabilidade
+
+**7. Sistema de Soft Delete (v0.13.0)**
+
+-   Implementação de soft deletes para preservação de dados
+-   Interface de lixo para gestão de tarefas eliminadas
+-   Sistema de restauração e eliminação permanente
+
+**8. Otimização de UX (v0.13.1)**
+
+-   Filtragem inteligente com foco em tarefas ativas
+-   Títulos dinâmicos para contexto das vistas
+-   Interface limpa centrada na produtividade
 
 ---
 

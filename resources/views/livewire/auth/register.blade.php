@@ -1,5 +1,13 @@
 <div class="flex flex-col gap-6">
-    <x-auth-header :title="__('Create an account')" :description="__('Enter your details below to create your account')" />
+    <!-- Custom Header -->
+    <div class="text-center mb-2">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white transition-colors duration-200">
+            ✨ Criar Conta
+        </h2>
+        <p class="text-sm text-gray-600 dark:text-gray-300 mt-2 transition-colors duration-200">
+            Junte-se a nós e comece a organizar as suas tarefas
+        </p>
+    </div>
 
     <!-- Session Status -->
     <x-auth-session-status class="text-center" :status="session('status')" />
@@ -50,13 +58,17 @@
 
         <div class="flex items-center justify-end">
             <flux:button type="submit" variant="primary" class="w-full">
-                {{ __('Create account') }}
+                🎯 Criar Conta
             </flux:button>
         </div>
     </form>
 
-    <div class="space-x-1 rtl:space-x-reverse text-center text-sm text-zinc-600 dark:text-zinc-400">
-        <span>{{ __('Already have an account?') }}</span>
-        <flux:link :href="route('login')" wire:navigate>{{ __('Log in') }}</flux:link>
+    <div class="text-center pt-4 border-t border-gray-200 dark:border-gray-600 transition-colors duration-200">
+        <p class="text-sm text-gray-600 dark:text-gray-300 transition-colors duration-200">
+            Já tem uma conta?
+        </p>
+        <flux:link :href="route('login')" wire:navigate class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 font-medium transition-colors duration-200">
+            Iniciar sessão →
+        </flux:link>
     </div>
 </div>

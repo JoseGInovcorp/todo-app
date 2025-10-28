@@ -75,34 +75,13 @@
                                name="due_date" 
                                id="due_date"
                                value="{{ old('due_date', $task->due_date?->format('Y-m-d')) }}"
-                               class="w-full rounded-md border-gray-300 dark:border-gray-500 dark:bg-white dark:text-gray-900 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 @error('due_date') border-red-300 @enderror">
+                               class="w-full rounded-md border-gray-300 dark:border-gray-500 bg-white dark:bg-gray-50 text-gray-900 dark:text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 @error('due_date') border-red-300 @enderror"
+                               style="color-scheme: light;"">
                         @error('due_date')
                             <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
                         @enderror
                         <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
                             Opcional. Deixe em branco se não tem prazo específico.
-                        </p>
-                    </div>
-
-                    <!-- Estado da tarefa -->
-                    <div class="sm:col-span-2">
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
-                            Estado da Tarefa
-                        </label>
-                        <div class="flex items-center">
-                            <input type="hidden" name="is_completed" value="0">
-                            <input type="checkbox" 
-                                   name="is_completed" 
-                                   id="is_completed"
-                                   value="1"
-                                   {{ old('is_completed', $task->is_completed) ? 'checked' : '' }}
-                                   class="h-4 w-4 text-indigo-600 border-gray-300 dark:border-gray-500 rounded focus:ring-indigo-500">
-                            <label for="is_completed" class="ml-2 text-sm text-gray-700 dark:text-gray-300">
-                                Tarefa concluída
-                            </label>
-                        </div>
-                        <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
-                            Marque se a tarefa já foi concluída.
                         </p>
                     </div>
 
@@ -127,7 +106,7 @@
 
                 <!-- Botões de ação -->
                 <div class="mt-8 flex flex-col sm:flex-row sm:justify-end sm:space-x-3 space-y-3 sm:space-y-0">
-                    <a href="{{ route('tasks.show', $task) }}" 
+                    <a href="{{ route('tasks.index') }}" 
                        class="w-full sm:w-auto inline-flex justify-center items-center px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md font-semibold text-xs text-gray-700 dark:text-gray-300 uppercase tracking-widest shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150">
                         Cancelar
                     </a>

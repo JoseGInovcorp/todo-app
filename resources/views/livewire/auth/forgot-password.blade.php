@@ -1,5 +1,13 @@
- <div class="flex flex-col gap-6">
-    <x-auth-header :title="__('Forgot password')" :description="__('Enter your email to receive a password reset link')" />
+<div class="flex flex-col gap-6">
+    <!-- Custom Header -->
+    <div class="text-center mb-2">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white transition-colors duration-200">
+            🔑 Recuperar Password
+        </h2>
+        <p class="text-sm text-gray-600 dark:text-gray-300 mt-2 transition-colors duration-200">
+            Introduza o seu email para receber um link de recuperação
+        </p>
+    </div>
 
     <!-- Session Status -->
     <x-auth-session-status class="text-center" :status="session('status')" />
@@ -15,11 +23,15 @@
             placeholder="email@example.com"
         />
 
-        <flux:button variant="primary" type="submit" class="w-full">{{ __('Email password reset link') }}</flux:button>
+        <flux:button variant="primary" type="submit" class="w-full">📧 Enviar Link de Recuperação</flux:button>
     </form>
 
-    <div class="space-x-1 rtl:space-x-reverse text-center text-sm text-zinc-400">
-        <span>{{ __('Or, return to') }}</span>
-        <flux:link :href="route('login')" wire:navigate>{{ __('log in') }}</flux:link>
+    <div class="text-center pt-4 border-t border-gray-200 dark:border-gray-600 transition-colors duration-200">
+        <p class="text-sm text-gray-600 dark:text-gray-300 transition-colors duration-200">
+            Lembrou-se da password?
+        </p>
+        <flux:link :href="route('login')" wire:navigate class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 font-medium transition-colors duration-200">
+            Voltar ao login →
+        </flux:link>
     </div>
 </div>

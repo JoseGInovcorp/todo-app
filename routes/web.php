@@ -16,9 +16,9 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::get('dashboard', function () {
-    return redirect()->route('tasks.index');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('dashboard', [App\Http\Controllers\TaskController::class, 'dashboard'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
 
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
@@ -43,6 +43,11 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('tasks', TaskController::class);
     Route::patch('tasks/{task}/toggle-complete', [TaskController::class, 'toggleComplete'])
         ->name('tasks.toggle-complete');
+
+    // Rotas para gestão de tarefas eliminadas (soft delete)
+    Route::get('tasks-trash', [TaskController::class, 'trash'])->name('tasks.trash');
+    Route::patch('tasks/{id}/restore', [TaskController::class, 'restore'])->name('tasks.restore');
+    Route::delete('tasks/{id}/force-delete', [TaskController::class, 'forceDelete'])->name('tasks.force-delete');
 });
 
 require __DIR__ . '/auth.php';

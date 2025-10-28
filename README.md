@@ -7,9 +7,11 @@ Projecto desenvolvido durante período de estágio, implementando boas práticas
 
 ## 🎯 Estado do Projeto
 
-**Versão Actual:** `0.11.0` - **Projecto Completo e Operacional** ✅
+**Versão Actual:** `0.13.3` - **Projecto Completo e Operacional** ✅
 
 ### ✅ Funcionalidades Implementadas
+
+#### 🏗️ **Core Features**
 
 -   **CRUD Completo de Tarefas** - Criar, listar, editar, eliminar
 -   **Sistema de Filtros Avançado** - Por estado, prioridade, data, pesquisa
@@ -19,15 +21,37 @@ Projecto desenvolvido durante período de estágio, implementando boas práticas
 -   **Branding Consistente** - Logo visível em todos os estados de autenticação
 -   **Autorização Granular** - Controlo de acesso via Policies
 -   **Sidebar Personalizada** - Navegação inteligente com contadores dinâmicos
--   **Funcionalidades Extra** - Duplicação de tarefas, paginação, ordenação
+-   **Funcionalidades Extra** - Duplicação de tarefas, paginação
 
-### 🎨 Otimizações Visuais (v0.11.0)
+#### 🚀 **Advanced Features (Chronological Order)**
+
+-   **📊 Sistema de Ordenação (v0.12.0)** - 8 opções de organização: data, vencimento, prioridade, título
+-   **🗑️ Sistema de Lixo/Soft Delete (v0.13.0)** - Tarefas eliminadas preservadas na BD, com restauração e eliminação permanente
+-   **🎯 Filtragem Inteligente (v0.13.1)** - Vista principal focada em tarefas ativas, interface otimizada para produtividade
+-   **🎨 Interface de Autenticação Personalizada (v0.13.2)** - Páginas de login/registo com branding consistente e visual harmonizado
+-   **📊 Dashboard Informativo (v0.13.3)** - Centro de controlo com métricas, estatísticas e ações rápidas
+
+### 🎨 Otimizações Visuais (Cronológica)
+
+#### **v0.11.0 - Dark Mode Foundation**
 
 -   **Títulos bem contrastados** no dark mode para máxima legibilidade
 -   **Campos de formulário sempre legíveis** - texto preto sobre fundo branco
--   **Consistência visual** entre todas as páginas e componentes
--   **Estados hover otimizados** para ambos os temas
+-   **Estados hover otimizados** para ambos os temas com maior contraste
 -   **Acessibilidade melhorada** com contrastes adequados
+
+#### **v0.12.0 - Interface Consistency**
+
+-   **Consistência visual** entre todas as páginas e componentes
+-   **Botões padronizados** - posicionamento e espaçamento consistente
+-   **Formulários otimizados** - campos desnecessários removidos, foco na essência
+
+#### **v0.13.0+ - Advanced UX**
+
+-   **🗑️ Interface de lixo (v0.13.0)** - gestão visual de tarefas eliminadas com ações de restauração
+-   **🎯 UX otimizada (v0.13.1)** - vista principal focada em tarefas ativas, títulos dinâmicos com contexto
+-   **🔐 Páginas de autenticação redesenhadas (v0.13.2)** - login, registo e recuperação com visual consistente
+-   **📊 Dashboard completo (v0.13.3)** - métricas de produtividade, contadores consistentes e redirecionamento pós-login
 
 ### 🚀 Tecnologias
 
@@ -156,7 +180,7 @@ docs/
 -   **Filtros dinâmicos** por estado, prioridade e data
 -   **Pesquisa** por título de tarefa
 -   **Paginação** automática
--   **Ordenação** por data de criação ou vencimento
+-   **Sistema de ordenação avançado** - 8 opções: data, vencimento, prioridade, título (v0.12.0)
 -   **Estados visuais** para tarefas em atraso
 
 ### ✨ Criação de Tarefas
@@ -172,6 +196,30 @@ docs/
 -   **Ações rápidas** (editar, duplicar, eliminar)
 -   **Alertas contextuais** para tarefas em atraso
 -   **Breadcrumbs** para navegação
+
+### 📊 Sistema de Ordenação (v0.12.0)
+
+-   **8 opções de organização** integradas com filtros existentes:
+    -   📅 **Por criação**: Mais recentes ↔ Mais antigas
+    -   ⏰ **Por vencimento**: Próximo ↔ Distante
+    -   ⭐ **Por prioridade**: Alta→Baixa ↔ Baixa→Alta
+    -   🔤 **Por título**: A→Z ↔ Z→A
+-   **Estado preservado** após aplicação de filtros
+-   **Tratamento inteligente** de valores NULL (datas de vencimento)
+-   **SQL otimizado** para compatibilidade universal
+
+### 🗑️ Sistema de Lixo (v0.13.0)
+
+-   **Soft Delete implementado**: Tarefas "eliminadas" preservadas na base de dados
+-   **4 estados de tarefa**: Pendente, Concluída, Em Atraso, **Eliminada** (invisível)
+-   **Interface de lixo** com visual diferenciado (fundo vermelho, texto riscado)
+-   **3 ações disponíveis**:
+    -   🗑️ **Eliminar** (soft delete) - move para o lixo
+    -   ♻️ **Restaurar** - volta do lixo para ativo
+    -   💀 **Eliminar permanentemente** - remove definitivamente da BD
+-   **Contador dinâmico** na sidebar mostrando quantidade de tarefas no lixo
+-   **Segurança mantida** - cada utilizador vê apenas suas tarefas eliminadas
+-   **Auditoria completa** - histórico de eliminações preservado
 
 ### 🧭 Sidebar Inteligente (v0.8.0-0.9.1)
 
@@ -221,13 +269,6 @@ docs/
 
 ## 🗓️ Roadmap de Desenvolvimento
 
-### ✅ **v0.10.0 - Dark/Light Mode Sistema** ✅ **LANÇADO**
-
--   Sistema completo de alternância de temas
--   Persistência automática e prevenção de flash
--   Compatibilidade total com navegação SPA
--   Formulários e interface otimizados
-
 ### ✅ **v0.8.0 - Sidebar Personalizada** (Concluído)
 
 -   Navegação inteligente baseada em autenticação
@@ -247,6 +288,13 @@ docs/
 -   Branding unificado em todos os estados de autenticação
 -   Layout inteligente condicional
 -   Experiência visual profissional
+
+### ✅ **v0.10.0 - Dark/Light Mode Sistema** ✅ **LANÇADO**
+
+-   Sistema completo de alternância de temas
+-   Persistência automática e prevenção de flash
+-   Compatibilidade total com navegação SPA
+-   Formulários e interface otimizados
 
 ### 🔄 **v1.0.0 - Vue.js + Inertia** (Planeado)
 

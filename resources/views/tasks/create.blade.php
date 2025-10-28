@@ -74,14 +74,24 @@
                     <!-- Data de vencimento -->
                     <div>
                         <label for="due_date" class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
-                            Data de Vencimento
+                            📅 Data de Vencimento
                         </label>
                         <input type="date" 
                                name="due_date" 
                                id="due_date"
                                value="{{ old('due_date', $task?->due_date?->format('Y-m-d')) }}"
                                min="{{ now()->format('Y-m-d') }}"
-                               class="w-full rounded-md border-gray-300 dark:border-gray-500 dark:bg-white dark:text-gray-900 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 @error('due_date') border-red-300 @enderror">
+                               class="w-full rounded-md border-gray-300 dark:border-gray-500 dark:bg-white dark:text-gray-900 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 @error('due_date') border-red-300 @enderror"
+                               style="color-scheme: light;">
+                        <style>
+                            input[type="date"]::-webkit-calendar-picker-indicator {
+                                filter: invert(0) brightness(0) saturate(100%) invert(55%) sepia(8%) saturate(328%) hue-rotate(181deg) brightness(89%) contrast(87%);
+                                cursor: pointer;
+                            }
+                            .dark input[type="date"]::-webkit-calendar-picker-indicator {
+                                filter: invert(0) brightness(0) saturate(100%) invert(55%) sepia(8%) saturate(328%) hue-rotate(181deg) brightness(89%) contrast(87%);
+                            }
+                        </style>
                         @error('due_date')
                             <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
                         @enderror

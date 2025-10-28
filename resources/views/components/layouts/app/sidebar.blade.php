@@ -54,6 +54,13 @@
                                 {{ Auth::user()->tasks()->overdue()->count() }}
                             </flux:badge>
                         </flux:navlist.item>
+                        
+                        <flux:navlist.item icon="trash" :href="route('tasks.trash')" :current="request()->routeIs('tasks.trash')">
+                            {{ __('Lixo') }}
+                            <flux:badge size="sm" color="gray" class="ml-auto">
+                                {{ Auth::user()->tasks()->onlyTrashed()->count() }}
+                            </flux:badge>
+                        </flux:navlist.item>
                     </flux:navlist.group>
                 @else
                     <flux:navlist.group :heading="__('Bem-vindo')" class="grid">
