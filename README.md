@@ -191,7 +191,7 @@ docs/
 
 ---
 
-## 🎨 Screenshots & Funcionalidades
+## ⚡ Funcionalidades Detalhadas
 
 ### 📋 Listagem de Tarefas
 
