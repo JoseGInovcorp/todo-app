@@ -13,6 +13,21 @@ class TaskController extends Controller
     {
         $query = Task::where('user_id', Auth::id());
 
+        // Suporte para filtro simples da sidebar (converte para parâmetros específicos)
+        if ($request->filled('filter')) {
+            switch ($request->filter) {
+                case 'pending':
+                    $request->merge(['status' => 'pending']);
+                    break;
+                case 'completed':
+                    $request->merge(['status' => 'completed']);
+                    break;
+                case 'overdue':
+                    $request->merge(['due_date_filter' => 'overdue']);
+                    break;
+            }
+        }
+
         // Filtro por estado (pendente, concluída, todas)
         if ($request->filled('status')) {
             if ($request->status === 'completed') {
@@ -101,19 +116,24 @@ class TaskController extends Controller
 
         $tasks = $query->paginate(10)->appends($request->query());
 
-        return view('tasks.index', compact('tasks'));
+        return inertia('TaskList', [
+            'tasks' => $tasks,
+            'filters' => $request->only(['search', 'status', 'priority', 'due_date_filter', 'sort']),
+        ]);
     }
 
     public function create(Request $request)
     {
-        $task = null;
+        $duplicateTask = null;
 
         // Se foi passado um ID para duplicar
         if ($request->filled('duplicate')) {
-            $task = Task::find($request->duplicate);
+            $duplicateTask = Task::find($request->duplicate);
         }
 
-        return view('tasks.create', compact('task'));
+        return inertia('TaskCreate', [
+            'duplicateTask' => $duplicateTask,
+        ]);
     }
 
     public function store(Request $request)
@@ -135,13 +155,19 @@ class TaskController extends Controller
     public function show(Task $task)
     {
         $this->authorize('view', $task);
-        return view('tasks.show', compact('task'));
+
+        return inertia('TaskShow', [
+            'task' => $task,
+        ]);
     }
 
     public function edit(Task $task)
     {
         $this->authorize('update', $task);
-        return view('tasks.edit', compact('task'));
+
+        return inertia('TaskEdit', [
+            'task' => $task,
+        ]);
     }
 
     public function update(Request $request, Task $task)
@@ -169,24 +195,26 @@ class TaskController extends Controller
     }
 
     /**
-     * Toggle da conclusão de uma tarefa via AJAX
+     * Toggle da conclusão de uma tarefa via AJAX/Inertia
      */
     public function toggleComplete(Task $task)
     {
         $this->authorize('update', $task);
         $task->update(['is_completed' => !$task->is_completed]);
 
+        $message = $task->is_completed
+            ? 'Tarefa marcada como concluída!'
+            : 'Tarefa marcada como pendente!';
+
         if (request()->expectsJson()) {
             return response()->json([
                 'success' => true,
                 'is_completed' => $task->is_completed,
-                'message' => $task->is_completed
-                    ? 'Tarefa marcada como concluída!'
-                    : 'Tarefa marcada como pendente!'
+                'message' => $message
             ]);
         }
 
-        return redirect()->back()->with('success', 'Estado da tarefa atualizado!');
+        return redirect()->back()->with('success', $message);
     }
 
     /**
@@ -199,7 +227,9 @@ class TaskController extends Controller
             ->orderBy('deleted_at', 'desc')
             ->paginate(10);
 
-        return view('tasks.trash', compact('tasks'));
+        return inertia('TaskTrash', [
+            'tasks' => $tasks,
+        ]);
     }
 
     /**
@@ -241,33 +271,65 @@ class TaskController extends Controller
     {
         $userId = Auth::id();
 
-        // Estatísticas básicas
+        // Estatísticas básicas - usar os mesmos scopes do middleware
         $totalTasks = Task::where('user_id', $userId)->count();
-        $completedTasks = Task::where('user_id', $userId)->where('is_completed', true)->count();
-        $pendingTasks = Task::where('user_id', $userId)->pendingNotOverdue()->count(); // Usar o mesmo scope da sidebar
+        $completedTasks = Task::where('user_id', $userId)->completed()->count();
+        $pendingTasks = Task::where('user_id', $userId)->pendingNotOverdue()->count();
         $trashedTasks = Task::onlyTrashed()->where('user_id', $userId)->count();
 
-        // Tarefas em atraso (não concluídas e vencidas)
-        $overdueTasks = Task::where('user_id', $userId)
-            ->where('is_completed', false)
-            ->whereNotNull('due_date')
-            ->where('due_date', '<', now()->toDateString())
-            ->count();
+        // Tarefas em atraso - usar o mesmo scope do middleware
+        $overdueTasks = Task::where('user_id', $userId)->overdue()->count();
 
         // Estatísticas por prioridade
         $highPriorityTasks = Task::where('user_id', $userId)->where('priority', 'alta')->count();
         $mediumPriorityTasks = Task::where('user_id', $userId)->where('priority', 'media')->count();
         $lowPriorityTasks = Task::where('user_id', $userId)->where('priority', 'baixa')->count();
 
-        // Tarefas criadas esta semana (segunda a domingo)
-        $thisWeekTasks = Task::where('user_id', $userId)
+        // Estatísticas de hoje
+        $todayCreated = Task::where('user_id', $userId)
+            ->whereDate('created_at', now()->toDateString())
+            ->count();
+
+        $todayCompleted = Task::where('user_id', $userId)
+            ->where('is_completed', true)
+            ->whereDate('updated_at', now()->toDateString())
+            ->count();
+
+        $todayDeleted = Task::onlyTrashed()
+            ->where('user_id', $userId)
+            ->whereDate('deleted_at', now()->toDateString())
+            ->count();
+
+        // Estatísticas desta semana (segunda a domingo)
+        $thisWeekCreated = Task::where('user_id', $userId)
             ->whereBetween('created_at', [now()->startOfWeek(Carbon::MONDAY), now()->endOfWeek(Carbon::SUNDAY)])
             ->count();
 
-        // Tarefas completadas esta semana (marcadas como concluídas entre segunda e domingo)
         $thisWeekCompleted = Task::where('user_id', $userId)
             ->where('is_completed', true)
             ->whereBetween('updated_at', [now()->startOfWeek(Carbon::MONDAY), now()->endOfWeek(Carbon::SUNDAY)])
+            ->count();
+
+        $thisWeekDeleted = Task::onlyTrashed()
+            ->where('user_id', $userId)
+            ->whereBetween('deleted_at', [now()->startOfWeek(Carbon::MONDAY), now()->endOfWeek(Carbon::SUNDAY)])
+            ->count();
+
+        // Tarefas criadas semana passada
+        $lastWeekCreated = Task::where('user_id', $userId)
+            ->whereBetween('created_at', [
+                now()->subWeek()->startOfWeek(Carbon::MONDAY),
+                now()->subWeek()->endOfWeek(Carbon::SUNDAY)
+            ])
+            ->count();
+
+        // Tarefas completadas semana passada
+        $lastWeekCompleted = Task::where('user_id', $userId)
+            ->where('is_completed', true)
+            ->whereBetween('updated_at', [
+                now()->subWeek()->startOfWeek(Carbon::MONDAY),
+                now()->subWeek()->endOfWeek(Carbon::SUNDAY)
+            ])
             ->count();
 
         // Próximas tarefas (próximos 7 dias)
@@ -279,7 +341,7 @@ class TaskController extends Controller
             ->limit(5)
             ->get();
 
-        return view('dashboard', compact(
+        return inertia('Dashboard', compact(
             'totalTasks',
             'completedTasks',
             'pendingTasks',
@@ -288,8 +350,14 @@ class TaskController extends Controller
             'highPriorityTasks',
             'mediumPriorityTasks',
             'lowPriorityTasks',
-            'thisWeekTasks',
+            'todayCreated',
+            'todayCompleted',
+            'todayDeleted',
+            'thisWeekCreated',
             'thisWeekCompleted',
+            'thisWeekDeleted',
+            'lastWeekCreated',
+            'lastWeekCompleted',
             'upcomingTasks'
         ));
     }

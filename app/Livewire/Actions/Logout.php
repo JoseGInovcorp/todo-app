@@ -17,6 +17,9 @@ class Logout
         Session::invalidate();
         Session::regenerateToken();
 
-        return redirect('/');
+        // Force full browser redirect to completely clear Inertia state
+        return redirect('/')->withHeaders([
+            'X-Inertia' => 'false',  // Tell Inertia to NOT handle this redirect
+        ]);
     }
 }

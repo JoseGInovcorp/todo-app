@@ -15,12 +15,9 @@
 
 <!-- Initialize theme immediately -->
 <script>
-    // Apply theme before any content loads
+    // Apply theme before any content loads to prevent flash
     (function() {
-        const savedTheme = localStorage.getItem('theme');
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        const theme = savedTheme || (prefersDark ? 'dark' : 'light');
-        
+        const theme = localStorage.getItem('theme') || 'light';
         if (theme === 'dark') {
             document.documentElement.classList.add('dark');
         } else {

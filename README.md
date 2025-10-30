@@ -1,35 +1,53 @@
-# ✅ To-Do App (Laravel 12 + Tailwind CSS + Jetstream)
+# ✅ To-Do App - Modern Task Management
 
-Aplicação web completa para gestão de tarefas pessoais, desenvolvida em **Laravel 12** com **Tailwind CSS** e **Jetstream**.  
-Projecto desenvolvido durante período de estágio, implementando boas práticas de desenvolvimento, documentação técnica e controlo de versões.
+Aplicação moderna de gestão de tarefas desenvolvida com **Laravel 12**, **Vue.js 3** e **Inertia.js**.  
+Projeto que evoluiu de uma aplicação Blade tradicional para uma SPA moderna, implementando as melhores práticas de desenvolvimento web.
 
 ---
 
 ## 🎯 Estado do Projeto
 
-**Versão Actual:** `0.13.3` - **Projecto Completo e Operacional** ✅
+**Versão Atual:** `1.0.1` - **SPA Moderna com Vue.js 3** ✅
 
-### ✅ Funcionalidades Implementadas
+## 🚀 Stack Tecnológico
 
-#### 🏗️ **Core Features**
+-   **Backend**: Laravel 12 + Inertia.js + Laravel Sanctum
+-   **Frontend**: Vue.js 3 + Composition API + Tailwind CSS
+-   **Database**: MySQL com soft deletes
+-   **Build**: Vite + NPM
+-   **Icons**: Heroicons
 
--   **CRUD Completo de Tarefas** - Criar, listar, editar, eliminar
--   **Sistema de Filtros Avançado** - Por estado, prioridade, data, pesquisa
--   **Autenticação Multi-Utilizador** - Cada utilizador vê apenas as suas tarefas
--   **Interface Moderna e Responsiva** - Design profissional com Tailwind CSS
--   **🌙 Dark/Light Mode Otimizado** - Sistema completo com legibilidade maximizada
--   **Branding Consistente** - Logo visível em todos os estados de autenticação
--   **Autorização Granular** - Controlo de acesso via Policies
--   **Sidebar Personalizada** - Navegação inteligente com contadores dinâmicos
--   **Funcionalidades Extra** - Duplicação de tarefas, paginação
+## ⚡ Funcionalidades Principais
 
-#### 🚀 **Advanced Features (Chronological Order)**
+### � Gestão Completa de Tarefas
 
--   **📊 Sistema de Ordenação (v0.12.0)** - 8 opções de organização: data, vencimento, prioridade, título
--   **🗑️ Sistema de Lixo/Soft Delete (v0.13.0)** - Tarefas eliminadas preservadas na BD, com restauração e eliminação permanente
--   **🎯 Filtragem Inteligente (v0.13.1)** - Vista principal focada em tarefas ativas, interface otimizada para produtividade
--   **🎨 Interface de Autenticação Personalizada (v0.13.2)** - Páginas de login/registo com branding consistente e visual harmonizado
--   **📊 Dashboard Informativo (v0.13.3)** - Centro de controlo com métricas, estatísticas e ações rápidas
+-   ✅ **CRUD Completo** - Criar, visualizar, editar, eliminar
+-   🔄 **Toggle de Estados** - Marcar como concluída/pendente
+-   🗑️ **Sistema de Lixeira** - Soft delete com possibilidade de recuperação
+-   📋 **Duplicação de Tarefas** - Criação rápida baseada em tarefa existente
+-   🎯 **Sistema de Prioridades** - Alta, média, baixa com códigos visuais
+
+### 📊 Dashboard Analítico
+
+-   📈 **Métricas em Tempo Real** - Total, pendentes, concluídas, atrasadas
+-   � **Toggle Hoje/Esta Semana** - Alternância entre estatísticas diárias e semanais
+-   📊 **Contagens Detalhadas** - Tarefas criadas, concluídas e eliminadas por período
+-   🎯 **Próximas Tarefas** - Preview das 5 mais urgentes
+-   🚀 **Ações Rápidas** - Links diretos para funcionalidades principais
+
+### � Sistema de Filtros Inteligente
+
+-   🎛️ **Filtros Dinâmicos** - Por estado, prioridade, data de vencimento
+-   🔍 **Pesquisa Textual** - Busca por título e descrição
+-   📊 **Contadores em Tempo Real** - Números atualizados na sidebar
+-   🎯 **Vista Focada** - Interface otimizada para produtividade
+
+### 🎨 Interface Moderna
+
+-   🌙 **Modo Escuro/Claro** - Alternância com persistência de preferência
+-   📱 **Design Responsivo** - Funciona perfeitamente em todos os dispositivos
+-   ✨ **Modais Elegantes** - Confirmações com transições suaves
+-   🎭 **Feedback Visual** - Estados de loading e mensagens em tempo real
 
 ### 🎨 Otimizações Visuais (Cronológica)
 
@@ -168,7 +186,7 @@ resources/
 └── css/                     # Estilos Tailwind
 docs/
 ├── changelog.md             # Registo de alterações
-└── README.md               # Este ficheiro
+└── dark-mode-guide.md      # Guia do modo escuro
 ```
 
 ---
@@ -267,60 +285,46 @@ docs/
 
 ---
 
-## 🗓️ Roadmap de Desenvolvimento
+## ✅ **Projeto Concluído - v1.0.1**
 
-### ✅ **v0.8.0 - Sidebar Personalizada** (Concluído)
+**Estado:** Versão estável final lançada em Outubro 2025
 
--   Navegação inteligente baseada em autenticação
--   Contadores dinâmicos de tarefas
--   Brand personalizado Todo-App
--   Filtros rápidos integrados
+### 🎯 **Funcionalidades Implementadas:**
 
-### ✅ **v0.9.0 - Lógica de Tarefas Otimizada** (Concluído)
+#### ✅ **Arquitetura Moderna**
 
--   Separação clara entre pendentes e em atraso
--   Filtros exclusivos sem sobreposição
--   UX melhorada para categorização de tarefas
--   Scopes otimizados e código mais limpo
+-   Laravel 12 + Vue.js 3 + Inertia.js SPA
+-   87 testes automatizados com Pest (91% taxa de sucesso)
+-   Autenticação segura com isolamento de dados
 
-### 🔄 **v0.9.1 - Consistência Visual** ✅ **LANÇADO**
+#### ✅ **Interface Avançada**
 
--   Branding unificado em todos os estados de autenticação
--   Layout inteligente condicional
--   Experiência visual profissional
+-   Sistema Dark/Light Mode com persistência
+-   Dashboard com toggle "Hoje/Esta Semana"
+-   Filtros dinâmicos e pesquisa em tempo real
+-   Design responsivo com Tailwind CSS
 
-### ✅ **v0.10.0 - Dark/Light Mode Sistema** ✅ **LANÇADO**
+#### ✅ **Gestão Completa de Tarefas**
 
--   Sistema completo de alternância de temas
--   Persistência automática e prevenção de flash
--   Compatibilidade total com navegação SPA
--   Formulários e interface otimizados
-
-### 🔄 **v1.0.0 - Vue.js + Inertia** (Planeado)
-
--   Migração para Vue 3 com Inertia.js
--   Interactividade avançada
--   Actualizações em tempo real
-
-### 🔄 **v1.1.0 - Testes Automatizados** (Planeado)
-
--   Suite completa de testes com Pest
--   Cobertura de código automatizada
--   Pipeline CI/CD
+-   CRUD completo com soft deletes
+-   Sistema de prioridades (Alta/Média/Baixa)
+-   Detecção automática de tarefas em atraso
+-   Sidebar com contadores dinâmicos
 
 ---
 
 ## 📚 Documentação
 
--   **[DOCUMENTATION.md](DOCUMENTATION.md)** - Documentação técnica adaptada para contexto de estágio
+-   **[DOCUMENTATION.md](DOCUMENTATION.md)** - Documentação técnica completa do projeto
+-   **[TESTING_DOCUMENTATION.md](TESTING_DOCUMENTATION.md)** - Suite completa de testes automatizados com Pest
 -   **[Changelog](docs/changelog.md)** - Histórico cronológico de desenvolvimento e versões
--   **[Dark Mode Guide](docs/dark-mode-guide.md)** - Guia de implementação do sistema de temas
--   **[Development Summary](DEVELOPMENT_SUMMARY.md)** - Resumo do percurso de desenvolvimento para estágio
+-   **[VUE_IMPLEMENTATION.md](VUE_IMPLEMENTATION.md)** - Guia técnico da migração para Vue.js 3 + Inertia.js
 
 ### Componentes da Documentação
 
--   **📋 Arquitectura**: Estrutura MVC completa com componentes integrados
+-   **📋 Arquitectura**: Estrutura MVC completa com componentes Vue.js integrados
 -   **🎨 UI/UX**: Sistema de design e implementação avançada de temas
+-   **🧪 Testes**: Suite completa com 87 testes automatizados (91% passing)
 -   **🔧 Configuração**: Setup do ambiente local e considerações de deployment
 -   **📊 Metodologia**: Processo de desenvolvimento e controlo de versões
 

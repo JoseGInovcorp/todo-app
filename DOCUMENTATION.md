@@ -1,93 +1,129 @@
-# 📚 Documentação do Projeto — To‑Do App (Estágio)
+# � To-Do App - Documentação Completa
 
-## 🎯 O que é este projeto?
+## 🎯 Visão Geral
 
-Uma aplicação web para gerir tarefas pessoais, que desenvolvi durante o meu estágio para aprender Laravel e desenvolvimento web moderno.
+Uma aplicação moderna de gestão de tarefas desenvolvida com **Laravel 12** e **Vue.js 3**, utilizando **Inertia.js** para uma experiência SPA (Single Page Application) fluida.
 
-**O objetivo:** Criar uma app simples mas completa onde possa criar, editar, marcar como concluídas e organizar as minhas tarefas diárias.
-
----
-
-## 🛠️ Tecnologias que aprendi a usar
-
--   **Laravel 12** - Framework PHP (era a versão mais recente quando comecei)
--   **Tailwind CSS** - Para fazer a interface bonita e responsiva
--   **MySQL** - Base de dados para guardar as tarefas
--   **Herd** - Ambiente local para desenvolver
--   **Pest** - Para fazer testes automáticos
--   **Blade** - Templates do Laravel para as páginas
+**Evolução do Projeto:** Iniciado como uma aplicação Blade tradicional durante o estágio, evoluiu para uma SPA moderna com Vue.js, mantendo toda a robustez do Laravel no backend.
 
 ---
 
-## ✨ O que a aplicação faz
+## � Stack Tecnológico
 
-### Funcionalidades principais:
+### Backend
 
--   **Criar tarefas** com título, descrição, data limite e prioridade
--   **Ver lista de todas as tarefas** com filtros (pendentes, concluídas, atrasadas)
--   **Pesquisar** tarefas pelo título
--   **Editar** tarefas existentes
--   **Marcar como concluída** com um clique
--   **Apagar** tarefas que já não preciso
--   **Funciona no telemóvel** - interface responsiva
+-   **Laravel 12** - Framework PHP moderno
+-   **Laravel Sanctum** - Autenticação API
+-   **Laravel Fortify** - Sistema de autenticação
+-   **Inertia.js** - Bridge entre Laravel e Vue.js
+-   **MySQL** - Base de dados relacional
 
-### Sistema de utilizadores:
+### Frontend
 
--   Cada pessoa vê apenas as suas próprias tarefas
--   Login seguro (não podes ver tarefas de outros)
--   Registo de novas contas
+-   **Vue.js 3** - Framework JavaScript reativo
+-   **Composition API** - API moderna do Vue.js
+-   **Tailwind CSS** - Framework CSS utility-first
+-   **Heroicons** - Biblioteca de ícones SVG
+-   **Vite** - Build tool e development server
 
-### 📊 Sistema de Ordenação (v0.12.0):
+### Ferramentas
 
--   **8 formas diferentes** de organizar as tarefas:
-    -   Por data de criação (mais recentes primeiro ou mais antigas)
-    -   Por data de vencimento (próximas ou distantes)
-    -   Por prioridade (alta→baixa ou baixa→alta)
-    -   Por título alfabético (A→Z ou Z→A)
--   **Mantém a escolha** depois de aplicar filtros
--   **Funciona com tudo** - pesquisa, filtros, paginação
-
-### 🗑️ Sistema de Lixo com Soft Delete (v0.13.0):
-
--   **4 estados para as tarefas**: Pendente, Concluída, Em Atraso, **Eliminada**
--   **Soft Delete**: Tarefas "eliminadas" ficam guardadas na base de dados para auditoria
--   **Interface de lixo dedicada** onde posso ver e gerir tarefas eliminadas
--   **3 ações principais**:
-    -   **Eliminar** - move a tarefa para o lixo (soft delete)
-    -   **Restaurar** - traz a tarefa de volta do lixo
-    -   **Eliminar permanentemente** - apaga definitivamente da base de dados
--   **Contador na sidebar** - mostra quantas tarefas estão no lixo em tempo real
-
-### 🎯 Filtragem Inteligente de Vistas (v0.13.1):
-
--   **Vista principal otimizada**: Por defeito mostra apenas tarefas ativas (não concluídas)
--   **Filtragem automática**: Tarefas concluídas ficam ocultas para reduzir ruído visual
--   **Vista "Todas"**: Opção para ver todas as tarefas quando necessário
--   **Contexto dinâmico**: Títulos das vistas adaptam-se ao filtro ativo
--   **Experiência focada**: Interface limpa centrada nas tarefas que requerem atenção
-
-### 🎨 Interface de Autenticação Personalizada (v0.13.2):
-
--   **Branding consistente**: Logo "✅ To-Do App" visível em todas as páginas de auth
--   **Visual harmonizado**: Mesmo gradiente de fundo da página principal
--   **Páginas redesenhadas**: Login, registo e recuperação de password
--   **Elementos portugueses**: Títulos e textos 100% em português com emojis intuitivos
--   **Design profissional**: Containers com sombras, bordas arredondadas e transições suaves
--   **Dark mode integrado**: Suporte completo para modo escuro em todas as páginas de auth
-
-### 📊 Dashboard Informativo (v0.13.3):
-
--   **Centro de controlo**: Página principal com visão geral completa da produtividade
--   **4 métricas principais**: Total, Pendentes, Concluídas, Em Atraso com contadores visuais
--   **Estatísticas detalhadas**: Distribuição por prioridade e resumo semanal
--   **Próximas tarefas**: Lista das 5 próximas tarefas com vencimento nos próximos 7 dias
--   **Ações rápidas**: Botões diretos para Nova Tarefa, Todas, Pendentes e Lixo
--   **Redirecionamento inteligente**: Utilizadores são direcionados para o dashboard após login
--   **Contagens consistentes**: Mesma lógica de contadores em todo o projeto (sidebar + dashboard)
+-   **Composer** - Gestor de dependências PHP
+-   **NPM** - Gestor de pacotes JavaScript
+-   **Pest** - Framework de testes
 
 ---
 
-## 🌙 Dark Mode - O que mais me orgulho
+## ⚡ Funcionalidades Principais
+
+### 🎯 Gestão de Tarefas
+
+-   **Criar Tarefas** - Título, descrição, data de vencimento e prioridade
+-   **Editar Tarefas** - Modificação completa de todos os campos
+-   **Eliminar Tarefas** - Sistema de soft delete com lixeira
+-   **Marcar Como Concluída** - Toggle rápido do estado
+-   **Duplicar Tarefas** - Criação rápida baseada em tarefa existente
+-   **Visualização Detalhada** - Página individual para cada tarefa
+
+### 📊 Dashboard Analítico
+
+-   **Contadores em Tempo Real** - Total, pendentes, concluídas, atrasadas
+-   **Métricas por Prioridade** - Distribuição visual por cores
+-   **Toggle Hoje/Esta Semana** - Alternância entre estatísticas diárias e semanais
+-   **Contagens Detalhadas** - Tarefas criadas, concluídas e eliminadas por período
+-   **Próximas Tarefas** - Lista das 5 tarefas mais urgentes
+-   **Progresso Visual** - Percentagem de conclusão geral
+
+### 🔍 Sistema de Filtros Avançado
+
+-   **Por Estado** - Pendentes, concluídas, atrasadas
+-   **Por Prioridade** - Alta, média, baixa
+-   **Pesquisa Textual** - Busca por título e descrição
+-   **Contadores na Sidebar** - Números atualizados em tempo real
+
+### 🎨 Interface Moderna
+
+-   **Modo Escuro/Claro** - Alternância baseada na preferência do utilizador
+-   **Design Responsivo** - Adaptação automática para desktop/mobile
+-   **Modais Elegantes** - Confirmações com transições suaves
+-   **Feedback Visual** - Mensagens de sucesso/erro em tempo real
+-   **SPA Experience** - Navegação fluida sem recarregamentos
+
+### 🔐 Autenticação e Segurança
+
+-   **Sistema Completo de Utilizadores** - Registo, login, recuperação de senha
+-   **Isolamento de Dados** - Cada utilizador vê apenas as suas tarefas
+-   **Autorização Granular** - Políticas de acesso por operação
+-   **Sessions Seguras** - Gestão automática de sessões
+
+### � Migração para Vue.js 3 + Inertia.js (v1.0.0):
+
+-   **Arquitetura Moderna**: Transição completa de Blade para Vue.js 3 SPA
+-   **Inertia.js Bridge**: Mantém Laravel backend com experiência SPA no frontend
+-   **Composition API**: Uso da API moderna do Vue.js para melhor reatividade
+-   **Componentes Reutilizáveis**: Modularização da interface em componentes Vue
+-   **Estado Reativo**: Atualizações em tempo real sem recarregamentos de página
+-   **Performance Melhorada**: Navegação instantânea entre páginas
+
+### 🎨 Sistema de Modais Modernos:
+
+-   **ConfirmationModal Component**: Modal reutilizável para todas as confirmações
+-   **Transições Elegantes**: Animações suaves de entrada e saída
+-   **Estados Visuais**: Diferentes tipos (warning, danger, info) com cores apropriadas
+-   **Feedback de Processamento**: Spinners e estados de loading durante ações
+-   **Acessibilidade**: Suporte para tecla ESC e foco adequado
+-   **Teleport to Body**: Renderização correta independente da posição no DOM
+
+### 🔧 Sistema de Lixeira Avançado:
+
+-   **Soft Delete Inteligente**: Preservação de dados com possibilidade de recuperação
+-   **Interface Dedicada**: Página específica para gestão de itens eliminados
+-   **Duplas Confirmações**: Modais específicos para restaurar e eliminar permanentemente
+-   **Contadores Sincronizados**: Números atualizados em tempo real na sidebar
+-   **Histórico de Ações**: Rastreamento completo de operações de eliminação/restauração
+
+### 📊 Dashboard Analítico Completo:
+
+-   **Métricas em Tempo Real**: 4 contadores principais sempre atualizados
+-   **Análise por Prioridade**: Distribuição visual com códigos de cores
+-   **Toggle Hoje/Esta Semana**: Alternância dinâmica entre estatísticas diárias e semanais
+-   **Contagens Detalhadas**: Tarefas criadas, concluídas e eliminadas por período
+-   **Período Flexível**: Visualização de hoje (dia atual) ou esta semana (segunda a domingo)
+-   **Próximas Tarefas**: Preview das 5 tarefas mais urgentes
+-   **Ações Rápidas**: Links diretos para funcionalidades principais
+-   **Progresso Visual**: Indicadores gráficos de conclusão
+
+### 🎯 Sistema de Filtros Unificado:
+
+-   **Sidebar Inteligente**: Filtros com contadores em tempo real
+-   **Estados Múltiplos**: Pendentes, concluídas, atrasadas, lixeira
+-   **Pesquisa Integrada**: Busca textual combinada com filtros
+-   **URL Parameters**: Filtros refletidos na URL para bookmarking
+-   **Persistência de Estado**: Mantém filtros durante navegação
+
+---
+
+## 🌙 Dark Mode
 
 Uma das coisas que mais gostei de implementar foi o sistema de modo escuro/claro.
 
@@ -125,12 +161,6 @@ Uma das coisas que mais gostei de implementar foi o sistema de modo escuro/claro
 -   **Date picker corrigido** - agora visível em dark mode
 -   **Navegação melhorada** - botões cancelar funcionam corretamente
 -   **Validação visual** mantida em ambos os temas
-
-### O que aprendi:
-
--   **Consistência** é fundamental para aplicações profissionais
--   **Pequenos detalhes** fazem grande diferença na experiência do utilizador
--   **Teste sistemático** em ambos os temas é essencial
 
 ## 🗑️ Sistema de Soft Delete - Preservação e recuperação de dados
 
@@ -172,13 +202,6 @@ Uma das coisas que mais gostei de implementar foi o sistema de modo escuro/claro
 -   **Menos distração**: Interface limpa sem tarefas já concluídas
 -   **Flexibilidade**: Acesso rápido a diferentes vistas conforme necessidade
 -   **Clareza**: Sempre sei que vista estou a consultar
-
-### O que mais me orgulho:
-
--   **Decisões de UX fundamentadas** - priorizei o workflow real do utilizador
--   **Implementação elegante** - mudança simples com grande impacto
--   **Flexibilidade mantida** - não perdi funcionalidade, apenas otimizei
--   **Atenção ao detalhe** - títulos dinâmicos dão contexto constante
 
 ---
 
@@ -308,25 +331,198 @@ Aprendi a fazer testes automáticos com Pest para garantir que tudo funciona:
 
 ---
 
-## 🚀 Competências desenvolvidas
+## 🏗️ Arquitetura Técnica
 
-### Competências técnicas:
+### Padrão SPA com Inertia.js
 
--   **Laravel**: MVC, migrations, relationships, policies
--   **PHP**: sintaxe, orientação a objectos, namespaces
--   **Frontend**: HTML, CSS, JavaScript, Tailwind
--   **Base de dados**: MySQL, queries, relacionamentos
--   **Git**: controlo de versões, branches, commits
--   **Testes**: como escrever testes automáticos
+```
+┌─────────────────┐    Inertia.js    ┌─────────────────┐
+│   Vue.js 3      │ ◄─────────────── │   Laravel 12    │
+│   (Frontend)    │                  │   (Backend)     │
+│                 │                  │                 │
+│ • Components    │                  │ • Controllers   │
+│ • Reactive Data │                  │ • Models        │
+│ • Router        │                  │ • Policies      │
+└─────────────────┘                  └─────────────────┘
+                                              │
+                                    ┌─────────────────┐
+                                    │     MySQL       │
+                                    │  (Database)     │
+                                    └─────────────────┘
+```
 
-### Competências pessoais:
+### Estrutura do Projeto
 
--   **Resolução de problemas**: debuggar erros passo a passo
--   **Documentação**: importância de registar o que faço
--   **Planeamento**: dividir funcionalidades grandes em pequenas
--   **Persistência**: não desistir quando algo não funciona
--   **Atenção ao detalhe**: pequenos detalhes fazem diferença
+```
+app/
+├── Http/
+│   ├── Controllers/
+│   │   └── TaskController.php      # CRUD + Dashboard + Lixeira
+│   ├── Middleware/
+│   │   └── HandleInertiaRequests.php # Dados globais Inertia
+│   └── Policies/
+│       └── TaskPolicy.php          # Autorização granular
+├── Models/
+│   ├── Task.php                    # Modelo com scopes e accessors
+│   └── User.php                    # Modelo de utilizador
+└── Providers/                      # Service providers
+
+resources/js/
+├── Components/
+│   ├── ConfirmationModal.vue       # Modal reutilizável
+│   └── Pagination.vue              # Paginação
+├── Layouts/
+│   └── Layout.vue                  # Layout principal
+├── Pages/
+│   ├── Dashboard.vue               # Painel de métricas
+│   ├── TaskList.vue                # Lista de tarefas
+│   ├── TaskShow.vue                # Visualização detalhada
+│   ├── TaskCreate.vue              # Criação de tarefa
+│   ├── TaskEdit.vue                # Edição de tarefa
+│   └── TaskTrash.vue               # Gestão da lixeira
+└── app.js                          # Bootstrap da aplicação
+```
+
+### Componentes Vue.js Principais
+
+#### 🎯 TaskController (Backend)
+
+```php
+// CRUD Básico
+index()          // Lista com filtros e ordenação
+store()          // Criar nova tarefa
+show()           // Visualizar tarefa específica
+update()         // Atualizar tarefa
+destroy()        // Soft delete
+
+// Funcionalidades Avançadas
+toggleComplete()  // Toggle estado de conclusão
+dashboard()      // Métricas para painel principal
+trash()          // Listar tarefas eliminadas
+restore()        // Restaurar da lixeira
+forceDelete()    // Eliminação permanente
+```
+
+#### 🧩 ConfirmationModal.vue
+
+```vue
+// Props Principais show: Boolean // Controla visibilidade type: String //
+warning, danger, info title: String // Título do modal message: String //
+Mensagem de confirmação processing: Boolean // Estado de loading // Features -
+Transições suaves com Vue Transition - Teleport para renderização no body -
+Suporte a tecla ESC para fechar - Estados visuais baseados no tipo - Callbacks
+para confirm/cancel
+```
+
+#### 📊 Dashboard.vue
+
+```vue
+// Dados Recebidos totalTasks: Number // Total de tarefas pendingTasks: Number
+// Tarefas pendentes completedTasks: Number // Tarefas concluídas overdueTasks:
+Number // Tarefas atrasadas upcomingTasks: Array // Próximas 5 tarefas //
+Funcionalidades - 4 cards de métricas principais - Estatísticas por prioridade -
+Análise semanal comparativa - Ações rápidas para navegação - Indicadores visuais
+de progresso
+```
+
+### Sistema de Filtros Unificado
+
+#### URL Parameters
+
+```
+/tasks?filter=pending      // Tarefas pendentes
+/tasks?filter=completed    // Tarefas concluídas
+/tasks?filter=overdue      // Tarefas atrasadas
+/tasks?search=termo        // Busca textual
+/tasks?priority=alta       // Por prioridade
+```
+
+#### Contadores em Tempo Real
+
+```javascript
+// HandleInertiaRequests.php
+'taskCounters' => [
+    'pending' => $user->tasks()->pendingNotOverdue()->count(),
+    'completed' => $user->tasks()->completed()->count(),
+    'overdue' => $user->tasks()->overdue()->count(),
+    'trash' => $user->tasks()->onlyTrashed()->count(),
+]
+```
 
 ---
 
-_Documentação criada durante o estágio de desenvolvimento web - 2025_
+## 🔧 Instalação e Configuração
+
+### Pré-requisitos
+
+-   PHP 8.2+
+-   Composer
+-   Node.js 16+ e NPM
+-   MySQL
+
+### Setup Rápido
+
+```bash
+# 1. Clonar repositório
+git clone [repo-url]
+cd todo-app
+
+# 2. Instalar dependências
+composer install
+npm install
+
+# 3. Configurar ambiente
+cp .env.example .env
+php artisan key:generate
+
+# 4. Base de dados
+php artisan migrate
+
+# 5. Compilar assets
+npm run build
+
+# 6. Iniciar servidor
+php artisan serve
+```
+
+---
+
+## 🚀 Competências Desenvolvidas
+
+### Stack Moderno Dominado
+
+-   **Laravel 12**: Framework PHP com Inertia.js
+-   **Vue.js 3**: Composition API e componentes reativos
+-   **Tailwind CSS**: Design system utility-first
+-   **Inertia.js**: Bridge para SPAs sem API complexa
+-   **MySQL**: Base de dados relacional otimizada
+
+### Arquitetura e Padrões
+
+-   **MVC Pattern**: Separação clara de responsabilidades
+-   **Component-Based Architecture**: Reutilização e modularidade
+-   **SPA Development**: Experiência fluida sem recarregamentos
+-   **State Management**: Estado reativo e partilhado
+-   **Authorization Policies**: Segurança granular
+
+### UX/UI Design
+
+-   **Responsive Design**: Adaptação automática a dispositivos
+-   **Dark Mode Implementation**: Tema dinâmico com persistência
+-   **Modal Systems**: Confirmações elegantes com transições
+-   **Real-time Feedback**: Contadores e estados atualizados
+-   **Accessibility**: Suporte a keyboard e screen readers
+
+### Boas Práticas
+
+-   **Soft Delete Strategy**: Preservação de dados com auditoria
+-   **Error Handling**: Gestão robusta de erros e validações
+-   **Performance Optimization**: Queries eficientes e caching
+-   **Code Organization**: Estrutura modular e maintível
+-   **Documentation**: Documentação técnica completa
+
+---
+
+_Documentação técnica completa - To-Do App v1.0.1_  
+_Desenvolvido com Laravel 12 + Vue.js 3 + Inertia.js_  
+_Outubro 2025_

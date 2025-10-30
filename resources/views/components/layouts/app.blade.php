@@ -15,12 +15,9 @@
         
         <!-- Initialize theme immediately -->
         <script>
-            // Apply theme before any content loads
+            // Apply theme before any content loads to prevent flash
             (function() {
-                const savedTheme = localStorage.getItem('theme');
-                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                const theme = savedTheme || (prefersDark ? 'dark' : 'light');
-                
+                const theme = localStorage.getItem('theme') || 'light';
                 if (theme === 'dark') {
                     document.documentElement.classList.add('dark');
                 } else {
@@ -80,6 +77,50 @@
 
         <!-- Alpine.js for dropdowns -->
         <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+        
+        <!-- Dark Mode Toggle Script -->
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const themeToggle = document.querySelector('.theme-toggle');
+                const sunIcon = document.querySelector('.sun-icon');
+                const moonIcon = document.querySelector('.moon-icon');
+                
+                // Function to update icon visibility
+                function updateIcons() {
+                    const isDark = document.documentElement.classList.contains('dark');
+                    if (isDark) {
+                        sunIcon.classList.remove('hidden');
+                        moonIcon.classList.add('hidden');
+                    } else {
+                        sunIcon.classList.add('hidden');
+                        moonIcon.classList.remove('hidden');
+                    }
+                }
+                
+                // Function to toggle theme
+                function toggleTheme() {
+                    const isDark = document.documentElement.classList.contains('dark');
+                    
+                    if (isDark) {
+                        document.documentElement.classList.remove('dark');
+                        localStorage.setItem('theme', 'light');
+                    } else {
+                        document.documentElement.classList.add('dark');
+                        localStorage.setItem('theme', 'dark');
+                    }
+                    
+                    updateIcons();
+                }
+                
+                // Initialize icons on page load
+                updateIcons();
+                
+                // Add click event listener
+                if (themeToggle) {
+                    themeToggle.addEventListener('click', toggleTheme);
+                }
+            });
+        </script>
     </body>
     </html>
 @endauth

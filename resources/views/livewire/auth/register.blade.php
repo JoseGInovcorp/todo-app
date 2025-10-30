@@ -67,7 +67,7 @@
         <p class="text-sm text-gray-600 dark:text-gray-300 transition-colors duration-200">
             Já tem uma conta?
         </p>
-        <flux:link :href="route('login')" wire:navigate class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 font-medium transition-colors duration-200">
+        <flux:link :href="route('login')" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 font-medium transition-colors duration-200">
             Iniciar sessão →
         </flux:link>
     </div>

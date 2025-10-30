@@ -37,7 +37,7 @@
             />
 
             @if (Route::has('password.request'))
-                <flux:link class="absolute top-0 text-sm end-0" :href="route('password.request')" wire:navigate>
+                <flux:link class="absolute top-0 text-sm end-0" :href="route('password.request')">
                     {{ __('Forgot your password?') }}
                 </flux:link>
             @endif
@@ -58,7 +58,7 @@
             <p class="text-sm text-gray-600 dark:text-gray-300 transition-colors duration-200">
                 Ainda não tem uma conta?
             </p>
-            <flux:link :href="route('register')" wire:navigate class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 font-medium transition-colors duration-200">
+            <flux:link :href="route('register')" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 font-medium transition-colors duration-200">
                 Criar conta gratuita →
             </flux:link>
         </div>
