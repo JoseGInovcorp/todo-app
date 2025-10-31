@@ -9,6 +9,17 @@ Projeto que evoluiu de uma aplicação Blade tradicional para uma SPA moderna, i
 
 **Versão Atual:** `1.0.1` - **SPA Moderna com Vue.js 3** ✅
 
+## 🎬 Demonstração em Vídeo
+
+📹 **[Ver Demonstração Completa](https://drive.google.com/file/d/1ZofwsLvvBnFXx-2o_xdlyTTXo_E4y1o4/view?usp=sharing)**
+
+Vídeo de apresentação (8 minutos) demonstrando todas as funcionalidades implementadas:
+- Autenticação e dashboard inteligente
+- CRUD completo de tarefas com filtros dinâmicos  
+- Sistema de lixeira com soft deletes
+- Experiência SPA fluida com Vue.js 3 + Inertia.js
+- Interface moderna com modo escuro/claro
+
 ## 🚀 Stack Tecnológico
 
 -   **Backend**: Laravel 12 + Inertia.js + Laravel Sanctum
